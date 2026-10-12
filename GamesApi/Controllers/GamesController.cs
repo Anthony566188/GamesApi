@@ -83,4 +83,9 @@ public class GamesController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpGet("stock-report")]
+    public async Task<ActionResult<List<PlatformStockReport>>> GetStockReport() =>
+        Ok(await _gameService.GetStockReportAsync());
+
 }

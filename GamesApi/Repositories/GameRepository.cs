@@ -50,4 +50,20 @@ public class GameRepository : IGameRepository
         return await _gamesCollection.Find(filter).ToListAsync();
     }
 
+    public async Task<List<PlatformStockReport>> GetStockReportAsync()
+    {
+        return await _gamesCollection
+            .Aggregate()
+            .Group(
+                g => g.Platform,
+                grp => new PlatformStockReport
+                {
+                    Platform = grp.Key,
+                    TotalTitles = grp.Count(),
+                    TotalInventoryValue = grp.Sum(g => g.Price * g.Stock)
+                })
+            .SortBy(r => r.Platform)
+            .ToListAsync();
+    }
+
 }

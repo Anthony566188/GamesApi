@@ -10,4 +10,5 @@ public interface IGameRepository
     Task<bool> UpdateAsync(string id, Game game);
     Task<bool> DeleteAsync(string id);
     Task<List<Game>> SearchByPlatformAndMaxPriceAsync(string platform, decimal maxPrice);
+    Task<List<PlatformStockReport>> GetStockReportAsync();
 }

@@ -39,4 +39,7 @@ public class GameService
 
     public async Task<List<Game>> SearchByPlatformAndMaxPriceAsync(string platform, decimal maxPrice) =>
         await _gameRepository.SearchByPlatformAndMaxPriceAsync(platform, maxPrice);
+    
+    public async Task<List<PlatformStockReport>> GetStockReportAsync() =>
+        await _gameRepository.GetStockReportAsync();
 }
