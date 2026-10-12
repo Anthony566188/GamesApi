@@ -36,4 +36,7 @@ public class GameService
 
     public async Task<bool> DeleteAsync(string id) =>
         await _gameRepository.DeleteAsync(id);
+
+    public async Task<List<Game>> SearchByPlatformAndMaxPriceAsync(string platform, decimal maxPrice) =>
+        await _gameRepository.SearchByPlatformAndMaxPriceAsync(platform, maxPrice);
 }

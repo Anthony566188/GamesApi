@@ -20,6 +20,21 @@ public class GamesController : ControllerBase
     public async Task<ActionResult<List<Game>>> GetAll() =>
         Ok(await _gameService.GetAllAsync());
 
+    [HttpGet("search")]
+    public async Task<ActionResult<List<Game>>> Search(
+        [FromQuery] string? platform,
+        [FromQuery] decimal? maxPrice)
+    {
+        if (string.IsNullOrWhiteSpace(platform))
+            return BadRequest("The 'platform' query parameter is required.");
+
+        if (maxPrice is null || maxPrice < 0)
+            return BadRequest("The 'maxPrice' query parameter is required and must be zero or greater.");
+
+        var games = await _gameService.SearchByPlatformAndMaxPriceAsync(platform, maxPrice.Value);
+        return Ok(games);
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<Game>> GetById(string id)
     {

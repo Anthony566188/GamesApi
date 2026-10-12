@@ -37,4 +37,17 @@ public class GameRepository : IGameRepository
         var result = await _gamesCollection.DeleteOneAsync(x => x.Id == id);
         return result.DeletedCount > 0;
     }
+
+    public async Task<List<Game>> SearchByPlatformAndMaxPriceAsync(string platform, decimal maxPrice)
+    {
+        var builder = Builders<Game>.Filter;
+
+        var filter = builder.And(
+            builder.Eq(g => g.Platform, platform),
+            builder.Lte(g => g.Price, maxPrice)
+        );
+
+        return await _gamesCollection.Find(filter).ToListAsync();
+    }
+
 }
