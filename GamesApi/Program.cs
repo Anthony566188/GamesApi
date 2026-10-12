@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Scalar.AspNetCore;
 using GamesApi.Repositories;
+using GamesApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,7 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
 
 builder.Services.AddSingleton<MongoDbContext>();
 builder.Services.AddSingleton<IGameRepository, GameRepository>();
+builder.Services.AddSingleton<GameService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
